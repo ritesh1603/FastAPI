@@ -55,12 +55,12 @@ pipeline {
             steps {
                 script {
                     def result = bat(returnStatus: true, script: """
-                    "$PLINK_PATH" -pw "$DEPLOY_PASSWORD" "$DEPLOY_USER@$DEPLOY_HOST" "bash -c '\
+                    "$PLINK_PATH" -pw "$DEPLOY_PASSWORD" "$DEPLOY_USER@$DEPLOY_HOST" "\
                     cd ${env.DEPLOY_PATH} && \
-                    python3 -m venv venv && \
+                    sudo python3 -m venv venv && \
                     source venv/bin/activate && \
-                    pip install selenium requests && \
-                    python -m unittest tests.py'
+                    sudo pip install selenium requests && \
+                    sudo python -m unittest tests.py
                     "
                     """)
                     if (result != 0) {
