@@ -59,8 +59,8 @@ pipeline {
                     cd ${env.DEPLOY_PATH} && \
                     sudo python3 -m venv venv && \
                     source venv/bin/activate && \
-                    sudo pip install selenium requests && \
-                    sudo python -m unittest tests.py
+                    sudo -H $(which pip3) install selenium requests && \
+                    sudo -H $(which python3) -m unittest tests.py
                     "
                     """)
                     if (result != 0) {
