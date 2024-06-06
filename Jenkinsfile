@@ -62,7 +62,7 @@ pipeline {
 
         stage('Notify and Trigger Next Build') {
             when {
-                expression { env.BRANCH_TO_BUILD != null }
+                expression { ${env.BRANCH_TO_BUILD} != null }
             }
             steps {
                 script {
