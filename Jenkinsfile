@@ -60,8 +60,8 @@ pipeline {
                     python3 -m venv venv && \
                     source venv/bin/activate && \
                     pip install selenium requests && \
-                    python -m unittest tests.py
-                    '"
+                    python -m unittest tests.py'
+                    "
                     """)
                     if (result != 0) {
                         error "Tests failed. Aborting deployment."
