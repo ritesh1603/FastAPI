@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 script {
-                    build job: 'Multibranch-Pipeline-Job-FastAPI', parameters: [[$class: 'StringParameterValue', name: 'BRANCH', value: env.BRANCH_TO_BUILD]]
+                    build job: 'MultiBranchDeployment_FastAPI', parameters: [[$class: 'StringParameterValue', name: 'BRANCH', value: env.BRANCH_TO_BUILD]]
                 }
             }
         }
