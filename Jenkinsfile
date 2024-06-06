@@ -51,24 +51,24 @@ pipeline {
                 """
             }
         }
-        // stage('Run Tests') {
-        //     steps {
-        //         script {
-        //             def result = bat(returnStatus: true, script: """
-        //             "$PLINK_PATH" -pw "$DEPLOY_PASSWORD" "$DEPLOY_USER@$DEPLOY_HOST" "bash -c '\
-        //             cd ${env.DEPLOY_PATH} && \
-        //             python3 -m venv venv && \
-        //             source venv/bin/activate && \
-        //             pip install selenium requests && \
-        //             pytest tests/'
-        //             '"
-        //             """)
-        //             if (result != 0) {
-        //                 error "Tests failed. Aborting deployment."
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Run Tests') {
+            steps {
+                script {
+                    def result = bat(returnStatus: true, script: """
+                    "$PLINK_PATH" -pw "$DEPLOY_PASSWORD" "$DEPLOY_USER@$DEPLOY_HOST" "bash -c '\
+                    cd ${env.DEPLOY_PATH} && \
+                    python3 -m venv venv && \
+                    source venv/bin/activate && \
+                    pip install selenium requests && \
+                    python -m unittest tests.py
+                    '"
+                    """)
+                    if (result != 0) {
+                        error "Tests failed. Aborting deployment."
+                    }
+                }
+            }
+        }
         stage('Run Ansible Playbook') {
             steps {
                 bat """
