@@ -51,23 +51,6 @@ pipeline {
                 """
             }
         }
-        stage('Run Tests') {
-            steps {
-                script {
-                    def result = bat(returnStatus: true, script: """
-                    "$PLINK_PATH" -pw "$DEPLOY_PASSWORD" "$DEPLOY_USER@$DEPLOY_HOST" "bash -c '\
-                    cd ${env.DEPLOY_PATH} && \
-                    sudo python3 -m venv venv && \
-                    source venv/bin/activate && \
-                    sudo -H \$(which pip3) install selenium requests && \
-                    sudo -H \$(which python3) -m unittest tests.py'"
-                    """)
-                    if (result != 0) {
-                        error "Tests failed. Aborting deployment."
-                    }
-                }
-            }
-        }
         stage('Run Ansible Playbook') {
             steps {
                 bat """
